@@ -9,6 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Voir ce que contient notre runner
-        run:  ls
+        run:  pwd
       - run: echo "seconde step"
   
