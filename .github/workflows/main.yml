@@ -5,3 +5,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo "Hello, world"
+  second-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Voir ce que contient notre runner
+        run:  ls
+      - run: echo "seconde step"
+  
