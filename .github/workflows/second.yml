@@ -1,0 +1,13 @@
+name: Second workflow
+on: push
+jobs:
+  checkout:
+    runs-on: ubuntu-latest
+    steps:
+      - run: ls
+      # Comme c'est une action de Github elle commence par "actions"
+      - uses: actions/checkout@v4.2.2
+      # on refait un ls
+      - run: ls
+      # On commit et RESULTAT
+      
