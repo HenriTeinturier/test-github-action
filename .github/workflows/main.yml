@@ -1,15 +1,25 @@
-name: Mon premiere workflow
+name: Mon premier workflow
 on: push
+
+env:
+  VAR_FROM_WORKFLOW: from workflow
+
 jobs:
-  build:
+  test-variables:
+    env:
+      VAR_FROM_JOB: from job
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - run: |
-          date > generated.txt
-          # Note: the following account information will not work on GHES
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add .
-          git commit -m "generated"
-          git push
+      - name: les variables
+        env:
+          VAR_FROM_STEP: from step
+          VAR_FROM_WORKFLOW: En fait je viens du step
+        run: |
+          echo "Var depuis workflow: $VAR_FROM_WORKFLOW"
+          echo "Var depuis le job: $VAR_FROM_JOB"
+          echo "Var depuis step: $VAR_FROM_STEP"
+          echo "github ref: $GITHUB_REF"
+          echo "github event: $GITHUB_EVENT_NAME"
+          # modifications avec le contexte
+          echo "Variable de projet: ${{ vars.VAR_PROJECT }}"
+          echo "Secret de projet:  ${{ secrets.SECRET_PROJECT }}"
