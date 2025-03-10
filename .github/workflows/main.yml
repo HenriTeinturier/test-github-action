@@ -1,5 +1,5 @@
 name: Mon premiere workflow
-on: [push]
+on: push
 jobs:
   say-hello:
     runs-on: ubuntu-latest
