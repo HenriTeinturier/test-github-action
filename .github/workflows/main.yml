@@ -7,19 +7,14 @@ env:
 jobs:
   test-variables:
     env:
-      VAR_FROM_JOB: from job
+      NAME: Nom se ma step
     runs-on: ubuntu-latest
     steps:
-      - name: les variables
-        env:
-          VAR_FROM_STEP: from step
-          VAR_FROM_WORKFLOW: En fait je viens du step
+      - name: ${{ env.NAME }}
         run: |
-          echo "Var depuis workflow: $VAR_FROM_WORKFLOW"
-          echo "Var depuis le job: $VAR_FROM_JOB"
-          echo "Var depuis step: $VAR_FROM_STEP"
+          echo "Var depuis workflow: $VAR_FROM_WORKFLOW" 
+          echo "Var depuis workflow: ${{ env.VAR_FROM_WORKFLOW }}"
           echo "github ref: $GITHUB_REF"
           echo "github event: $GITHUB_EVENT_NAME"
-          # modifications avec le contexte
           echo "Variable de projet: ${{ vars.VAR_PROJECT }}"
           echo "Secret de projet:  ${{ secrets.SECRET_PROJECT }}"
