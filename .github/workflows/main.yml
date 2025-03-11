@@ -15,6 +15,7 @@ jobs:
           echo "Var depuis workflow: $VAR_FROM_WORKFLOW" 
           echo "Var depuis workflow: ${{ env.VAR_FROM_WORKFLOW }}"
           echo "github ref: $GITHUB_REF"
+          echo "github ref: ${{ github.ref }}"
           echo "github event: $GITHUB_EVENT_NAME"
           echo "Variable de projet: ${{ vars.VAR_PROJECT }}"
           echo "Secret de projet:  ${{ secrets.SECRET_PROJECT }}"
