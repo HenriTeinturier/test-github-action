@@ -1,21 +1,19 @@
 name: Mon premier workflow
-on: push
-
-env:
-  VAR_FROM_WORKFLOW: from workflow
-
+on: [push]
 jobs:
-  test-variables:
-    env:
-      NAME: Nom se ma step
+  my-job:
     runs-on: ubuntu-latest
     steps:
-      - name: ${{ env.NAME }}
-        run: |
-          echo "Var depuis workflow: $VAR_FROM_WORKFLOW" 
-          echo "Var depuis workflow: ${{ env.VAR_FROM_WORKFLOW }}"
-          echo "github ref: $GITHUB_REF"
-          echo "github ref: ${{ github.ref }}"
-          echo "github event: $GITHUB_EVENT_NAME"
-          echo "Variable de projet: ${{ vars.VAR_PROJECT }}"
-          echo "Secret de projet:  ${{ secrets.SECRET_PROJECT }}"
+      - run: exit 1
+      - run: echo STEP 1
+        # ajout
+      - if: always()
+        run: echo STEP 2
+        # le contenu de if est considéré comme une expression
+        # pas besoin de mettre $ et double accolade
+      - run: echo STEP 3
+      - if: failure()
+        run: echo STEP 4
+      - if: success()
+        run: echo STEP 5
+      - run: echo STEP 6
