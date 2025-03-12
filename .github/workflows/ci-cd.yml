@@ -18,14 +18,11 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
 
-      - name: Initialize Vite project
-        run: npm create vite@latest . -- --template react
-
       - name: Install dependencies
         run: npm install
 
       - name: Run tests
-        run: npm test
+        run: npm run test:ci
 
   deploy:
     name: Deploy
