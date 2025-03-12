@@ -1,0 +1,41 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+
+jobs:
+  build-and-test:
+    name: Build & Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+
+      - name: Initialize Vite project
+        run: npm create vite@latest . -- --template react
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test
+
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to Development
+        if: github.ref == 'refs/heads/dev'
+        run: echo "🚀 Deploying to DEVELOPMENT environment"
+
+      - name: Deploy to Production
+        if: github.ref == 'refs/heads/main'
+        run: echo "🚀 Deploying to PRODUCTION environment"
