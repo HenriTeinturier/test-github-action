@@ -1,21 +1,29 @@
-name: Enquête
+name: "Enquête - Vol au Supermarché"
 
 on: push
 
 jobs:
-  detective-a:
+  policier-scene:
     runs-on: ubuntu-latest
     outputs:
-      empreinte: "Empreinte digitale"
-      # a ajouter après avoir mis la step en place
+      empreinte: "Empreinte digitale trouvée sur la caisse"
+    steps:
+      - name: Analyse scène de crime
+        run: echo "Le policier examine la caisse enregistreuse"
+      - name: Prélèvement empreinte
+        run: echo "Empreinte prélevée sur la caisse"
+
+  policier-video:
+    runs-on: ubuntu-latest
+    outputs:
       video: ${{ steps.surveillance.outputs.resultat }}
     steps:
-      - name: Analyse vidéo surveillance
+      - name: Récupération vidéos
         id: surveillance
-        run: echo "resultat=Vidéo de surveillance analysée" >> "$GITHUB_OUTPUT"
+        run: echo "resultat=Séquence vidéo 22h15-22h45 récupérée" >> "$GITHUB_OUTPUT"
 
-  detective-b:
-    needs: detective-a
+  detective:
+    needs: [policier-scene, policier-video]
     runs-on: ubuntu-latest
     outputs:
       rapport: ${{ steps.analyse.outputs.conclusion }}
@@ -24,33 +32,33 @@ jobs:
     steps:
       - name: Consultation indices
         run: |
-          echo "Indice 1: ${{ needs.detective-a.outputs.empreinte }}"
-          echo "Indice 2 : ${{ needs.detective-a.outputs.video }}"
+          echo "Consultation empreinte : ${{ needs.policier-scene.outputs.empreinte }}"
+          echo "Consultation vidéo : ${{ needs.policier-video.outputs.video }}"
 
       - name: Analyse empreinte
-        run: echo "ANALYSE_EMPREINTE=Empreinte suspecte confirmée" >> "$GITHUB_ENV"
+        run: echo "ANALYSE_EMPREINTE=Empreinte correspond à un suspect connu" >> "$GITHUB_ENV"
 
       - name: Analyse vidéo
-        run: echo "ANALYSE_VIDEO=Vidéo de surveillance confirme la présence de l'individu" >> "$GITHUB_ENV"
+        run: echo "ANALYSE_VIDEO=Suspect identifié sur la vidéo à 22h30" >> "$GITHUB_ENV"
 
       - name: Rapport final
         id: analyse
         run: |
           echo "conclusion=${ANALYSE_EMPREINTE}, ${ANALYSE_VIDEO}, suspect identifié !" >> "$GITHUB_OUTPUT"
-          echo "lieu=123 Rue de la Paix, Paris" >> "$GITHUB_OUTPUT"
+          echo "lieu=42 Avenue du Commerce, Supermarché SuperPrix" >> "$GITHUB_OUTPUT"
           echo "autorisation=true" >> "$GITHUB_OUTPUT"
 
   police:
-    needs: detective-b
+    needs: detective
     runs-on: ubuntu-latest
     steps:
       - name: Lecture rapport
-        run: echo "${{ needs.detective-b.outputs.rapport }}"
+        run: echo "${{ needs.detective.outputs.rapport }}"
 
       - name: Procéder à l'arrestation
-        if: ${{ needs.detective-b.outputs.autorisation_arrestation == 'true' }}
-        run: echo "Le suspect est arrêté à ${{ needs.detective-b.outputs.lieu_arrestation }}"
+        if: ${{ needs.detective.outputs.autorisation_arrestation == 'true' }}
+        run: echo "Le suspect est arrêté à ${{ needs.detective.outputs.lieu_arrestation }}"
 
       - name: Enquête sans suite
-        if: ${{ needs.detective-b.outputs.autorisation_arrestation == 'false' }}
+        if: ${{ needs.detective.outputs.autorisation_arrestation == 'false' }}
         run: echo "Pas de suspect trouvé"
