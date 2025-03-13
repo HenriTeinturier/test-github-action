@@ -1,4 +1,4 @@
-name: Enquête - Étape 1
+name: Enquête
 
 on: push
 
@@ -6,17 +6,51 @@ jobs:
   detective-a:
     runs-on: ubuntu-latest
     outputs:
-      indice1: "Empreinte digitale trouvée !"
+      empreinte: "Empreinte digitale"
       # a ajouter après avoir mis la step en place
-      indice2: ${{ steps.recherche.outputs.resultat }}
+      video: ${{ steps.surveillance.outputs.resultat }}
     steps:
-      - id: recherche
+      - name: Analyse vidéo surveillance
+        id: surveillance
         run: echo "resultat=Vidéo de surveillance analysée" >> "$GITHUB_OUTPUT"
 
   detective-b:
     needs: detective-a
     runs-on: ubuntu-latest
+    outputs:
+      rapport: ${{ steps.analyse.outputs.conclusion }}
+      lieu_arrestation: ${{ steps.analyse.outputs.lieu }}
+      autorisation_arrestation: ${{ steps.analyse.outputs.autorisation }}
     steps:
-      - run: |
-          echo "Indice statique reçu : ${{ needs.detective-a.outputs.indice1 }}"
-          echo "Indice dynamique reçu : ${{ needs.detective-a.outputs.indice2 }}"
+      - name: Consultation indices
+        run: |
+          echo "Indice 1: ${{ needs.detective-a.outputs.empreinte }}"
+          echo "Indice 2 : ${{ needs.detective-a.outputs.video }}"
+
+      - name: Analyse empreinte
+        run: echo "ANALYSE_EMPREINTE=Empreinte suspecte confirmée" >> "$GITHUB_ENV"
+
+      - name: Analyse vidéo
+        run: echo "ANALYSE_VIDEO=Vidéo de surveillance confirme la présence de l'individu" >> "$GITHUB_ENV"
+
+      - name: Rapport final
+        id: analyse
+        run: |
+          echo "conclusion=${ANALYSE_EMPREINTE}, ${ANALYSE_VIDEO}, suspect identifié !" >> "$GITHUB_OUTPUT"
+          echo "lieu=123 Rue de la Paix, Paris" >> "$GITHUB_OUTPUT"
+          echo "autorisation=true" >> "$GITHUB_OUTPUT"
+
+  police:
+    needs: detective-b
+    runs-on: ubuntu-latest
+    steps:
+      - name: Lecture rapport
+        run: echo "${{ needs.detective-b.outputs.rapport }}"
+
+      - name: Procéder à l'arrestation
+        if: ${{ needs.detective-b.outputs.autorisation_arrestation == 'true' }}
+        run: echo "Le suspect est arrêté à ${{ needs.detective-b.outputs.lieu_arrestation }}"
+
+      - name: Enquête sans suite
+        if: ${{ needs.detective-b.outputs.autorisation_arrestation == 'false' }}
+        run: echo "Pas de suspect trouvé"
