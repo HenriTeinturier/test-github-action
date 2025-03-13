@@ -55,10 +55,10 @@ jobs:
       - name: Lecture rapport
         run: echo "${{ needs.detective.outputs.rapport }}"
 
-      - name: Procéder à l'arrestation
-        if: ${{ needs.detective.outputs.autorisation_arrestation == 'true' }}
-        run: echo "Le suspect est arrêté à ${{ needs.detective.outputs.lieu_arrestation }}"
-
       - name: Enquête sans suite
         if: ${{ needs.detective.outputs.autorisation_arrestation == 'false' }}
         run: echo "Pas de suspect trouvé"
+
+      - name: Procéder à l'arrestation
+        if: ${{ needs.detective.outputs.autorisation_arrestation == 'true' }}
+        run: echo "Le suspect est arrêté à ${{ needs.detective.outputs.lieu_arrestation }}"
