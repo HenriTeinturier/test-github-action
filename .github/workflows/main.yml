@@ -1,0 +1,22 @@
+name: Enquête - Étape 1
+
+on: push
+
+jobs:
+  detective-a:
+    runs-on: ubuntu-latest
+    outputs:
+      indice1: "Empreinte digitale trouvée !"
+      # a ajouter après avoir mis la step en place
+      indice2: ${{ steps.recherche.outputs.resultat }}
+    steps:
+      - id: recherche
+        run: echo "resultat=Vidéo de surveillance analysée" >> "$GITHUB_OUTPUT"
+
+  detective-b:
+    needs: detective-a
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "Indice statique reçu : ${{ needs.detective-a.outputs.indice1 }}"
+          echo "Indice dynamique reçu : ${{ needs.detective-a.outputs.indice2 }}"
