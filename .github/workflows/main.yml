@@ -25,8 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Créer une variable d'environnement
-        run: |
-          echo "MA_VARIABLE=Ceci est une variable d'environnement" >> $GITHUB_ENV
+        run: echo "MA_VARIABLE=Hello" >> $GITHUB_ENV
 
       - name: Afficher la variable avec les deux méthodes
         run: |
@@ -34,7 +33,7 @@ jobs:
           echo "Avec le contexte env: ${{ env.MA_VARIABLE }}"
 
       - name: Utiliser la variable dans un if avec env.clé
-        if: ${{ env.MA_VARIABLE }}
+        if: ${{ env.MA_VARIABLE == 'Hello' }}
         run: |
           echo "La variable est bien présente!"
 
