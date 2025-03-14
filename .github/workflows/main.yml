@@ -32,4 +32,7 @@ jobs:
     needs: [job1, job2]
     steps:
       - name: tâche de job3
-        run: echo "Exécution de job3 après job1 et 2"
+        run: |
+          echo "Exécution de job3 après job1 et 2"
+          echo "output1=${{ needs.job1.outputs.output1 }}" 
+          echo "output2=${{ needs.job2.outputs.output2 }}"
