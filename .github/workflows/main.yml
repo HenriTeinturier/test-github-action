@@ -36,7 +36,12 @@ jobs:
       - name: Utiliser la variable dans un if avec env.clé
         if: ${{ env.MA_VARIABLE }}
         run: |
-          echo "La variablee st bien présente!"
+          echo "La variable est bien présente!"
+
+      - name: Utiliser la variable dans un if avec env.clé
+        if: ${{ !env.MA_VARIABLE }}
+        run: |
+          echo "La variable n'est pas présente!"
 
   # on passe le job 3 en 4 et on ajoute le job3 dans needs
   job4:
