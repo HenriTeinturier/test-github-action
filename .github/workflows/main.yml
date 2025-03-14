@@ -5,14 +5,28 @@ on: push
 jobs:
   job1:
     runs-on: ubuntu-latest
+    # 1 ajout d'un output avec données statiques
+    outputs:
+      output1: "L'exécution du job1 c'est bien passée"
     steps:
       - name: tâche de job1
+        id: step1
         run: echo "Exécution de job1"
   job2:
     runs-on: ubuntu-latest
+    # ajouté après avoir modifié la step du job
+    # 3 ajout d'un output avec données dynamiques
+    # on voit que l'on doit ajouter un id à la step pour récupérer l'output
+    outputs:
+      output2: ${{ steps.step2.outputs.output2 }}
     steps:
       - name: tâche de job2
-        run: echo "Exécution de job2"
+        # 4 on l'ajoute après avoir le surlignement d'erreur dans l'outputs
+        id: step2
+        #  2 on ajout une donnée dans le contexte du job via GITHUB_OUTPUT
+        run: |
+          echo "Exécution de job2"
+          echo "output2=L'exécution du job2 c'est bien passée" >> $GITHUB_OUTPUT
   job3:
     runs-on: ubuntu-latest
     needs: [job1, job2]
