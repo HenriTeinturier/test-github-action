@@ -1,0 +1,13 @@
+name: Mon premier workflow
+on:
+  push:
+    # branches: main
+    branches: [main, feature]
+    # branches:
+    #   - main
+    #   - feature
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo JOB DONE
