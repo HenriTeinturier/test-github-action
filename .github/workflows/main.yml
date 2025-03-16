@@ -1,11 +1,15 @@
 name: Mon premier workflow
 on:
   push:
-    # branches: main
-    branches: [main, feature]
+    # on peut faire toutes les branches et ignorer main
+    # suppression branches
+    # test push sur main
+    # test push sur develop
     # branches:
-    #   - main
     #   - feature
+    branches-ignore:
+      - main
+
 jobs:
   build:
     runs-on: ubuntu-latest
