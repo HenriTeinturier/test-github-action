@@ -20,7 +20,7 @@ on:
     # En France en été (UTC+2) il faut ajouter 2 heures
     # De plus l'horaire exacte n'est pas garantie pas Github
     # C'est approximatif. Dépend de la charge du serveur Github
-    - cron: "14 15 * * *"
+    - cron: "*/3 * * * *"
 
 jobs:
   backup:
