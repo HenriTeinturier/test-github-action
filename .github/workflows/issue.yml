@@ -9,4 +9,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - run: echo Une nouvelle issue a été crée
+      - name: title issue
+        run: |
+          echo "Le titre de l'issue est: ${{ github.event.issue.title }}"
+      - name: description issue
+        run: |
+          echo "La description de l'issue est: ${{ github.event.issue.body }}"
