@@ -1,0 +1,19 @@
+name: Mon premier workflow
+on:
+  push:
+    # on peut mixer les différents filtres ensemble
+    # Il faut que tous les filtres soient bons pour que le workflow soit lancé
+    branches:
+      - "main"
+      - "feature"
+    paths-ignore:
+      - "doc/**"
+    # on a le même principe pour les tags
+    tags:
+      - "v1"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo JOB DONE
