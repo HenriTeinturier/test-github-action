@@ -10,4 +10,5 @@ jobs:
       - env:
           EVENT_CONTEXT: ${{ toJSON(github.event) }}
         run: |
-          echo $EVENT_CONTEXT
+          # github fournit un outil jq pour afficher les json
+          echo $EVENT_CONTEXT | jq
