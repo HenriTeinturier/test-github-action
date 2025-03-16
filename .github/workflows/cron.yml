@@ -2,7 +2,9 @@ name: backup database
 
 on:
   schedule:
-    - cron: "*/3 * * * *"
+    - cron: "01 16 * * *"
+  # on ajoute workflow_dispatch pour pouvoir lancer le workflow manuellement
+  workflow_dispatch:
 
 jobs:
   backup:
