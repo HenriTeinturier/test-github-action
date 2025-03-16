@@ -1,25 +1,7 @@
 name: backup database
 
-# la syntaxe cron se présente de cette façon:
-# * * * * *
-# chaque étoile représente une unité de temps:
-# minute heure jour mois jour de la semaine
-# exemples:
-# */5 * * * * : Toutes les 5 minutes
-# 5 * * * * : Toutes les heures à la 5eme minute
-# 0 10 * * * : Toutes les jours à 10h00
-
 on:
   schedule:
-    # pour notre exemple on va lancer le workflow dans 2 minutes
-    # admettons que je veux choisir 10h32
-    # on va donc mettre 32 10 * * *
-    # sauf que le cron est sur UTC
-    # UTC c'est le temps universel qui est la référence mondiale
-    # En France en hiver (UTC+1) il faut ajouter 1 heure
-    # En France en été (UTC+2) il faut ajouter 2 heures
-    # De plus l'horaire exacte n'est pas garantie pas Github
-    # C'est approximatif. Dépend de la charge du serveur Github
     - cron: "*/3 * * * *"
 
 jobs:
