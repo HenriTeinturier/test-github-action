@@ -1,0 +1,18 @@
+name: test backup
+
+on:
+  workflow_run:
+    workflows: backup database
+    types:
+      - completed
+    # on pourrait ajouter des filtres comme
+    # le workflow déclencheur doit être effectué sur main
+    branches:
+      - main
+
+jobs:
+  test-backup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: test backup
+        run: echo "Test backup"
