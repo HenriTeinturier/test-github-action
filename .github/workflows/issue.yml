@@ -1,0 +1,12 @@
+name: issue_created
+on:
+  issues:
+    types:
+      - opened
+
+jobs:
+  alert:
+    runs-on: ubuntu-latest
+
+    steps:
+      - run: echo Une nouvelle issue a été crée
