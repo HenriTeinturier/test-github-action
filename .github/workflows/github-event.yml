@@ -11,4 +11,6 @@ jobs:
           EVENT_CONTEXT: ${{ toJSON(github.event) }}
         run: |
           # github fournit un outil jq pour afficher les json
+          # pipe afin d'envoyer la sortie de la premiere commande vers jq
           echo $EVENT_CONTEXT | jq
+          echo ${{ github.event_name}}
