@@ -41,6 +41,7 @@ jobs:
       - name: Run Super-Linter
         uses: github/super-linter@v7
         env:
-          VALIDATE_ALL_CODEBASE: true # Pour analyser tout le repo comme npm run lint
+          VALIDATE_ALL_CODEBASE: true
           VALIDATE_TYPESCRIPT_ES: true
           DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
