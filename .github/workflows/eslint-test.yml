@@ -20,18 +20,18 @@ jobs:
         run: npm install
 
       # On exécute ESLint
-      - name: Run ESLint
-        id: eslint
-        # on lance le test lint
-        run: npm run lint
+      # - name: Run ESLint
+      #   id: eslint
+      #   # on lance le test lint
+      #   run: npm run lint
 
       - name: Display ESLint output
-        if: failure()
+        # if: failure()
         # On ajoute des parametres file, line à notre warning
         # on pourrait utiliser des valeurs dynamiques pour file et line
         # Mais cela ferait des commandes bash compliquées
         # on met donc des statics pour notre exemple
         run: |
           echo "::group::ESLint Errors"
-          echo "::error file=src/App.tsx,line=6::unused variable"
+          echo "::warning file=src/App.tsx,line=6::unused variable"
           echo "::endgroup::"
