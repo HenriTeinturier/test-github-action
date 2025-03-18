@@ -43,8 +43,14 @@ jobs:
         # On continue même si ESLint renvoie des erreurs
         continue-on-error: true
         run: |
+          echo "::group::ESLint Raw Output"
+          npm run lint 2>&1
+          echo "::endgroup::"
+
+          echo "::group::ESLint Errors"
           # On lance ESLint et on capture la sortie
           npm run lint 2>&1 | while IFS= read -r line; do
+            # Format ESLint: /path/to/file:line:column: message
             if [[ $line =~ ^([^:]+):([0-9]+):([0-9]+):\ (.+)$ ]]; then
               file="${BASH_REMATCH[1]}"
               line="${BASH_REMATCH[2]}"
@@ -52,3 +58,4 @@ jobs:
               echo "::warning file=$file,line=$line,title=ESLint Error::$message"
             fi
           done
+          echo "::endgroup::"
