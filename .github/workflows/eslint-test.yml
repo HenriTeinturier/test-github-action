@@ -22,11 +22,15 @@ jobs:
       # On exécute ESLint
       - name: Run ESLint
         id: eslint
+        # on met le résultat du lint dans une variable
+        # on affiche le résultat
+        # on met le résultat dans l'environnement
+        run: |
+          eslint_output=$(npm run lint --silent)
+          echo $eslint_output
+          echo "eslint_output=$eslint_output" >> $GITHUB_ENV
         # Permet de continuer le workflow même si erreur
         # continue-on-error: true
-        # on récupère le résultat de lint dans le contexte steps
-        run: |
-          echo "eslint_output=$(npm run lint --silent)" >> $GITHUB_ENV
 
       - name: Display ESLint output
         if: failure()
@@ -36,5 +40,6 @@ jobs:
         # on met donc des statics pour ntore exemple
         run: |
           echo "::group::ESLint Output"
-          echo "::warning file=App.tsx,line=6::$eslint_output"
+          echo "eslint_output = $eslint_output"
+          echo "::warning file=App.tsx,line=6::message d'erreur pour le moment"
           echo "::endgroup::"
