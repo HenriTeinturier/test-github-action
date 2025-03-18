@@ -22,27 +22,16 @@ jobs:
       # On exécute ESLint
       - name: Run ESLint
         id: eslint
-        # on met le résultat du lint dans une variable
-        # on affiche le résultat
-        # on met le résultat dans l'environnement
-        run: |
-          eslint_output="essai"
-          echo "eslint_output=$eslint_output" >> $GITHUB_OUTPUT
-          echo "eslint_output_json=$(npm run lint:json)" >> $GITHUB_OUTPUT
+        # on lance le test lint
+        run: npm run lint
 
       - name: Display ESLint output
         if: failure()
         # On ajoute des parametres file, line à notre warning
         # on pourrait utiliser des valeurs dynamiques pour file et line
         # Mais cela ferait des commandes bash compliquées
-        # on met donc des statics pour ntore exemple
+        # on met donc des statics pour notre exemple
         run: |
-          echo "::group::ESLint Output"
-          echo steps
-          echo ${{ steps.eslint.outputs.eslint_output }}
-          echo ${{ steps.eslint.outputs.eslint_output_json }}
-          echo variable
-          echo $eslint_output
-          echo $eslint_output_json
+          echo "::group::ESLint Errors"
           echo "::warning file=App.tsx,line=6::message d'erreur pour le moment"
           echo "::endgroup::"
