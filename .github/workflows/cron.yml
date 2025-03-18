@@ -2,7 +2,9 @@ name: backup database
 
 on:
   schedule:
-    - cron: "25 16 * * *"
+    - cron: "40 9 * * *"
+    - cron: "40 10 * * *"
+    - cron: "40 11 * * *"
   # on ajoute workflow_dispatch pour pouvoir lancer le workflow manuellement
   workflow_dispatch:
 

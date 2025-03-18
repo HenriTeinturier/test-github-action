@@ -13,4 +13,4 @@ jobs:
           # github fournit un outil jq pour afficher les json
           # pipe afin d'envoyer la sortie de la premiere commande vers jq
           echo $EVENT_CONTEXT | jq
-          echo ${{ github.event_name}}
+          echo "event_name ${{ github.event_name}}"
