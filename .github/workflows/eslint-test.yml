@@ -32,20 +32,23 @@ jobs:
         run: |
           echo "::notice::ESLint test validé avec succès !"
 
+      - name: Ajout message de debug
+        run: echo "::debug::ESLint test validé avec succès !"
+
       - name: Display ESLint errors
         if: steps.eslint.outcome == 'failure'
-        # On ajoute des parametres file, line à notre warning
-        # on pourrait utiliser des valeurs dynamiques pour file et line
-        # Mais cela ferait des commandes bash compliquées
-        # on met donc des statics pour notre exemple
         run: |
           echo "::group::ESLint Errors"
           echo "::warning file=src/App.tsx,line=6,title=titre::unused variable"
           echo "::endgroup::"
 
+      # Ajout d'un summary qui s'affiche avec les annotations
+      # Github met à disposition la variable d'environnement $GITHUB_STEP_SUMMARY
       - name: Display simple summary
         run: echo "### Test ESLint 🔍" >> $GITHUB_STEP_SUMMARY
 
+      # on peut écrire des multilignes dans le summary
+      # On peut ajouter des données dans plusieurs steps
       - name: Display detailed summary
         run: |
           echo "- Code vérifié" >> $GITHUB_STEP_SUMMARY
