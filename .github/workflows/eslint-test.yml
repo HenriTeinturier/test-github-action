@@ -23,7 +23,7 @@ jobs:
       - name: Run ESLint
         id: eslint
         # Permet de continuer le workflow même si erreur
-        continue-on-error: true
+        # continue-on-error: true
         # on récupère le résultat de lint dans le contexte steps
         run: |
           echo "eslint_output=$(npm run lint --silent)" >> $GITHUB_ENV
