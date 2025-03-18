@@ -44,6 +44,7 @@ jobs:
         continue-on-error: true
         run: |
           echo "::group::ESLint Output"
+          # On lance ESLint avec le format JSON et on parse avec jq
           # On lance ESLint avec le format JSON
           npm run lint:json | while IFS= read -r line; do
             # Afficher la ligne dans les logs
