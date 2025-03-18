@@ -28,7 +28,7 @@ jobs:
         run: |
           eslint_output="essai"
           echo $eslint_output
-          echo "eslint_test=$eslint_output" >> $GITHUB_OUTPUTS
+          echo "eslint_test=$eslint_output" >> $GITHUB_OUTPUT
           npm run lint:json
 
       - name: Display ESLint output
