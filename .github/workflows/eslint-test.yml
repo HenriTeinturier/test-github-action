@@ -27,7 +27,7 @@ jobs:
         # On continue même si ESLint renvoie des erreurs
         continue-on-error: true
 
-      - name: Display ESLint output
+      - name: Display ESLint errors
         # On ajoute des parametres file, line à notre warning
         # on pourrait utiliser des valeurs dynamiques pour file et line
         # Mais cela ferait des commandes bash compliquées
