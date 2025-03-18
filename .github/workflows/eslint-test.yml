@@ -44,7 +44,6 @@ jobs:
         continue-on-error: true
         run: |
           echo "::group::ESLint Output"
-          # On lance ESLint avec le format JSON et on parse avec jq
           # On lance ESLint avec le format JSON
           npm run lint:json | while IFS= read -r line; do
             # Afficher la ligne dans les logs
@@ -52,6 +51,8 @@ jobs:
             # Créer une annotation si c'est une erreur ESLint
             if [[ $line =~ \"filePath\":\"([^\"]+)\".*\"line\":([0-9]+).*\"message\":\"([^\"]+)\" ]]; then
               file="${BASH_REMATCH[1]}"
+              # On convertit le chemin absolu en chemin relatif
+              file=$(echo "$file" | sed 's|/home/runner/work/test/test/||')
               line="${BASH_REMATCH[2]}"
               message="${BASH_REMATCH[3]}"
               echo "::warning file=$file,line=$line,title=ESLint Error::$message"
