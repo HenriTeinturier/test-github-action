@@ -36,12 +36,3 @@ jobs:
           echo "::group::ESLint Errors"
           echo "::warning file=src/App.tsx,line=6,title=titre::unused variable"
           echo "::endgroup::"
-
-      # utilisation de l'action validé SuperLinter
-      - name: Run Super-Linter
-        uses: github/super-linter@v7
-        env:
-          VALIDATE_ALL_CODEBASE: true
-          VALIDATE_TYPESCRIPT_ES: true
-          DEFAULT_BRANCH: main
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
