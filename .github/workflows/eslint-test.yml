@@ -19,20 +19,36 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      # On exécute ESLint
-      - name: Run ESLint
+      # # On exécute ESLint
+      # - name: Run ESLint
+      #   id: eslint
+      #   # on lance le test lint
+      #   run: npm run lint
+      #   # On continue même si ESLint renvoie des erreurs
+      #   continue-on-error: true
+
+      # - name: Display ESLint errors
+      #   # On ajoute des parametres file, line à notre warning
+      #   # on pourrait utiliser des valeurs dynamiques pour file et line
+      #   # Mais cela ferait des commandes bash compliquées
+      #   # on met donc des statics pour notre exemple
+      #   run: |
+      #     echo "::group::ESLint Errors"
+      #     echo "::warning file=src/App.tsx,line=6,title=titre::unused variable"
+      #     echo "::endgroup::"
+
+      # On exécute ESLint et on affiche les erreurs
+      - name: Run ESLint and display errors
         id: eslint
-        # on lance le test lint
-        run: npm run lint
         # On continue même si ESLint renvoie des erreurs
         continue-on-error: true
-
-      - name: Display ESLint errors
-        # On ajoute des parametres file, line à notre warning
-        # on pourrait utiliser des valeurs dynamiques pour file et line
-        # Mais cela ferait des commandes bash compliquées
-        # on met donc des statics pour notre exemple
         run: |
-          echo "::group::ESLint Errors"
-          echo "::warning file=src/App.tsx,line=6,title=titre::unused variable"
-          echo "::endgroup::"
+          # On lance ESLint et on capture la sortie
+          npm run lint 2>&1 | while IFS= read -r line; do
+            if [[ $line =~ ^([^:]+):([0-9]+):([0-9]+):\ (.+)$ ]]; then
+              file="${BASH_REMATCH[1]}"
+              line="${BASH_REMATCH[2]}"
+              message="${BASH_REMATCH[4]}"
+              echo "::warning file=$file,line=$line,title=ESLint Error::$message"
+            fi
+          done
