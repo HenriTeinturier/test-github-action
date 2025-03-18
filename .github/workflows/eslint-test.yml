@@ -20,13 +20,13 @@ jobs:
         run: npm install
 
       # On exécute ESLint
-      # - name: Run ESLint
-      #   id: eslint
-      #   # on lance le test lint
-      #   run: npm run lint
+      - name: Run ESLint
+        id: eslint
+        # on lance le test lint
+        run: npm run lint
+        continue-on-error: true
 
       - name: Display ESLint output
-        # if: failure()
         # On ajoute des parametres file, line à notre warning
         # on pourrait utiliser des valeurs dynamiques pour file et line
         # Mais cela ferait des commandes bash compliquées
