@@ -28,7 +28,7 @@ jobs:
         run: |
           eslint_output="essai"
           echo $eslint_output
-          echo "eslint_output=$eslint_output" >> $GITHUB_OUTPUTS
+          echo "eslint_test=$eslint_output" >> $GITHUB_OUTPUTS
           npm run lint:json
 
       - name: Display ESLint output
@@ -40,8 +40,8 @@ jobs:
         run: |
           echo "::group::ESLint Output"
           echo steps
-          echo ${{ steps.eslint.outputs.eslint_output }}
+          echo ${{ steps.eslint.outputs.eslint_test }}
           echo variable
-          echo $eslint_output
+          echo $eslint_test
           echo "::warning file=App.tsx,line=6::message d'erreur pour le moment"
           echo "::endgroup::"
