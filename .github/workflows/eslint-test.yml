@@ -24,6 +24,7 @@ jobs:
         id: eslint
         # on lance le test lint
         run: npm run lint
+        # On continue même si ESLint renvoie des erreurs
         continue-on-error: true
 
       - name: Display ESLint output
@@ -35,3 +36,11 @@ jobs:
           echo "::group::ESLint Errors"
           echo "::warning file=src/App.tsx,line=6,title=titre::unused variable"
           echo "::endgroup::"
+
+      # utilisation de l'action validé SuperLinter
+      - name: Run Super-Linter
+        uses: github/super-linter@v7
+        env:
+          VALIDATE_ALL_CODEBASE: true # Pour analyser tout le repo comme npm run lint
+          VALIDATE_TYPESCRIPT_ES: true
+          DEFAULT_BRANCH: main
