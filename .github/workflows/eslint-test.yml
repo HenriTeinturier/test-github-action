@@ -53,3 +53,8 @@ jobs:
         run: |
           echo "- Code vérifié" >> $GITHUB_STEP_SUMMARY
           echo "- Tests terminés" >> $GITHUB_STEP_SUMMARY
+
+      - name: Afficher le path
+        run: |
+          echo "Le path est $GITHUB_WORKSPACE"
+          pwd
