@@ -28,7 +28,7 @@ jobs:
         run: |
           eslint_output=$(npm run lint:json)
           echo $eslint_output
-          echo "eslint_output=$eslint_output" >> $GITHUB_ENV
+          echo "eslint_output=$eslint_output" >> $GITHUB_OUTPUTS
         # Permet de continuer le workflow même si erreur
         # continue-on-error: true
 
@@ -40,6 +40,9 @@ jobs:
         # on met donc des statics pour ntore exemple
         run: |
           echo "::group::ESLint Output"
-          echo "eslint_output = $eslint_output"
+          echo steps
+          echo ${{ steps.eslint.outputs.eslint_output }}
+          echo variable
+          echo $eslint_output
           echo "::warning file=App.tsx,line=6::message d'erreur pour le moment"
           echo "::endgroup::"
