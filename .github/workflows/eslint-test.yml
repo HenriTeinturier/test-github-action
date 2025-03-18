@@ -48,6 +48,5 @@ jobs:
 
       - name: Display detailed summary
         run: |
-          echo "`Détails du test :`" >> $GITHUB_STEP_SUMMARY
           echo "- Code vérifié" >> $GITHUB_STEP_SUMMARY
           echo "- Tests terminés" >> $GITHUB_STEP_SUMMARY
