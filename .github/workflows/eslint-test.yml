@@ -26,10 +26,10 @@ jobs:
         # on affiche le résultat
         # on met le résultat dans l'environnement
         run: |
-          npm run lint:json
           eslint_output="essai"
           echo $eslint_output
           echo "eslint_output=$eslint_output" >> $GITHUB_OUTPUTS
+          npm run lint:json
 
       - name: Display ESLint output
         if: failure()
