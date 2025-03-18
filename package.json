@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "lint:json": "eslint . --format json --silent",
+    "lint:json": "eslint . --format json --quiet",
     "preview": "vite preview",
     "test:ci": "vitest run"
   },
