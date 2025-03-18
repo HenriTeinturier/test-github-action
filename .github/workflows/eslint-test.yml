@@ -36,5 +36,5 @@ jobs:
         # on met donc des statics pour ntore exemple
         run: |
           echo "::group::ESLint Output"
-          echo "::warning file='src/App.tsx',line=6::$eslint_output"
+          echo "::warning file=App.tsx,line=6::$eslint_output"
           echo "::endgroup::"
