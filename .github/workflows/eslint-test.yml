@@ -19,11 +19,41 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      # Démonstration avec GitHub Super Linter
-      - name: Run Super-Linter
-        uses: github/super-linter@v5
-        env:
-          VALIDATE_ALL_CODEBASE: true # Car on veut tout le dossier src
-          VALIDATE_TYPESCRIPT_ES: true
-          DEFAULT_BRANCH: main
-          FILTER_REGEX_INCLUDE: src/.* # Uniquement le contenu du dossier src
+      # # On exécute ESLint
+      # - name: Run ESLint
+      #   id: eslint
+      #   # on lance le test lint
+      #   run: npm run lint
+      #   # On continue même si ESLint renvoie des erreurs
+      #   continue-on-error: true
+
+      # - name: Display ESLint errors
+      #   # On ajoute des parametres file, line à notre warning
+      #   # on pourrait utiliser des valeurs dynamiques pour file et line
+      #   # Mais cela ferait des commandes bash compliquées
+      #   # on met donc des statics pour notre exemple
+      #   run: |
+      #     echo "::group::ESLint Errors"
+      #     echo "::warning file=src/App.tsx,line=6,title=titre::unused variable"
+      #     echo "::endgroup::"
+
+      # On exécute ESLint et on affiche les erreurs
+      - name: Run ESLint and display errors
+        id: eslint
+        # On continue même si ESLint renvoie des erreurs
+        continue-on-error: true
+        run: |
+          echo "::group::ESLint Output"
+          # On lance ESLint avec le format JSON
+          npm run lint:json | while IFS= read -r line; do
+            # Afficher la ligne dans les logs
+            echo "$line"
+            # Créer une annotation si c'est une erreur ESLint
+            if [[ $line =~ \"filePath\":\"([^\"]+)\".*\"line\":([0-9]+).*\"message\":\"([^\"]+)\" ]]; then
+              file="${BASH_REMATCH[1]}"
+              line="${BASH_REMATCH[2]}"
+              message="${BASH_REMATCH[3]}"
+              echo "::warning file=$file,line=$line,title=ESLint Error::$message"
+            fi
+          done
+          echo "::endgroup::"
