@@ -23,18 +23,18 @@ jobs:
       - name: Run ESLint
         id: eslint
         # Permet de continuer le workflow même si erreur
-        # continue-on-error: true
+        continue-on-error: true
         # on récupère le résultat de lint dans le contexte steps
         run: |
           echo "eslint_output=$(npm run lint --silent)" >> $GITHUB_ENV
 
       - name: Display ESLint output
-        # if: failure()
+        if: failure()
         # On ajoute des parametres file, line à notre warning
         # on pourrait utiliser des valeurs dynamiques pour file et line
         # Mais cela ferait des commandes bash compliquées
         # on met donc des statics pour ntore exemple
         run: |
           echo "::group::ESLint Output"
-          echo "::warning file=src/App.tsx,line=6::$eslint_output"
+          echo "::warning file='src/App.tsx',line=6::$eslint_output"
           echo "::endgroup::"
