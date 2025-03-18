@@ -49,7 +49,7 @@ jobs:
             # Afficher la ligne dans les logs
             echo "$line"
             # Créer une annotation si c'est une erreur ESLint
-            if [[ $line =~ ^\s*([0-9]+):([0-9]+)\s+(error|warning)\s+(.+)$ ]]; then
+            if [[ $line =~ ^Error:\s*([0-9]+):([0-9]+)\s+(error|warning)\s+(.+)$ ]]; then
               line="${BASH_REMATCH[1]}"
               column="${BASH_REMATCH[2]}"
               type="${BASH_REMATCH[3]}"
