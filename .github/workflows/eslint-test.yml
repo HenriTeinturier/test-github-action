@@ -30,7 +30,7 @@ jobs:
       - name: Display ESLint success
         if: steps.eslint.outcome == 'success'
         run: |
-          echo "::notice::ESLint test validé avec succès ! Aucune erreur trouvée."
+          echo "::notice::ESLint test validé avec succès !"
 
       - name: Display ESLint errors
         if: steps.eslint.outcome == 'failure'
