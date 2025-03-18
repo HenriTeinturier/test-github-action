@@ -33,5 +33,5 @@ jobs:
         # on met donc des statics pour notre exemple
         run: |
           echo "::group::ESLint Errors"
-          echo "::warning file=App.tsx,line=6::message d'erreur pour le moment"
+          echo "::warning file=App.tsx,line=6::unused variable"
           echo "::endgroup::"
