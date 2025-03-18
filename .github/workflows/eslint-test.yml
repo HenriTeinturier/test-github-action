@@ -29,7 +29,7 @@ jobs:
           echo "eslint_output=$(npm run lint --silent)" >> $GITHUB_ENV
 
       - name: Display ESLint output
-        if: failure()
+        # if: failure()
         # On ajoute des parametres file, line à notre warning
         # on pourrait utiliser des valeurs dynamiques pour file et line
         # Mais cela ferait des commandes bash compliquées
