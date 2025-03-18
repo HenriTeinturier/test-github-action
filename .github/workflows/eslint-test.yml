@@ -32,6 +32,9 @@ jobs:
         # Mais cela ferait des commandes bash compliquées
         # on met donc des statics pour notre exemple
         run: |
+          # On créer une variable avec le chemin complet du fichier
+          FILE_PATH="$GITHUB_WORKSPACE/src/App.tsx"
+
           echo "::group::ESLint Errors"
-          echo "::warning file=src/App.tsx,line=6,title=Voir le fichier::unused variable"
+          echo "::warning file=src/App.tsx,line=6,title=$FILE_PATH::unused variable"
           echo "::endgroup::"
