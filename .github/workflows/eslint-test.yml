@@ -48,15 +48,13 @@ jobs:
           npm run lint 2>&1 | while IFS= read -r line; do
             # Afficher la ligne dans les logs
             echo "$line"
-            # Debug: afficher la ligne brute
-            echo "DEBUG: '$line'"
             # Créer une annotation si c'est une erreur ESLint
-            if [[ $line =~ ^([^:]+):([0-9]+):([0-9]+):\ (.+)$ ]]; then
-              file="${BASH_REMATCH[1]}"
-              line="${BASH_REMATCH[2]}"
+            if [[ $line =~ ^\s*([0-9]+):([0-9]+)\s+(error|warning)\s+(.+)$ ]]; then
+              line="${BASH_REMATCH[1]}"
+              column="${BASH_REMATCH[2]}"
+              type="${BASH_REMATCH[3]}"
               message="${BASH_REMATCH[4]}"
-              echo "DEBUG: Match found - file: $file, line: $line, message: $message"
-              echo "::warning file=$file,line=$line,title=ESLint Error::$message"
+              echo "::warning file=src/App.tsx,line=$line,title=ESLint $type::$message"
             fi
           done
           echo "::endgroup::"
