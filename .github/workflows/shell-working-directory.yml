@@ -5,7 +5,8 @@ jobs:
   my-job:
     runs-on: ubuntu-latest
     steps:
+      - run: ls -a
       - uses: actions/checkout@v4
       - run: |
           pwd
-          ls
+          ls -a
