@@ -7,4 +7,9 @@ jobs:
     steps:
       - run: |
           pwd
-          echo $SHELL
+      - run: |
+          pwd
+        shell: sh
+      - run: |
+          pwd
+        shell: pwsh
