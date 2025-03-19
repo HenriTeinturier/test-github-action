@@ -1,5 +1,9 @@
 name: workgin directory et shell
 on: push
+defaults:
+  run:
+    working-directory: ./frontend
+    shell: bash
 
 jobs:
   my-job:
@@ -12,5 +16,3 @@ jobs:
       # car notre package.json est dans le dossier /frontend
       - name: install dependencies
         run: npm install
-        # on va donc se positionner dans le dossier frontend
-        working-directory: ./frontend
