@@ -42,7 +42,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
           # AJOUT 3
-          fail-on-cache-miss: true
+          # fail-on-cache-miss: true
       - name: display cache statut
         run: |
           if [ "${{ steps.npm-cache.outputs.cache-hit }}" == "true" ]; then
