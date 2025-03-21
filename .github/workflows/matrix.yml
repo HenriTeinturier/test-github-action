@@ -1,4 +1,4 @@
-name: Mon premier workflow
+name: Matrix workflow
 on: push
 
 jobs:
@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
-        node-version: [18, 20, 22]
+        os: [ubuntu-latest, windows-latest]
+        node-version: [22, 24]
     steps:
       - run: echo "Running on ${{ matrix.os }} with node ${{ matrix.node-version }}"
