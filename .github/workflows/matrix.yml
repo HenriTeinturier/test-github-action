@@ -6,12 +6,10 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [ubuntu-latest, windows-latest]
         node-version: [22, 24]
-        exclude:
+        include:
           - os: macos-latest
-            node-version: 24
-          - os: windows-latest
     steps:
       - run: |
           echo "Running on ${{ matrix.os }} with node ${{ matrix.node-version }}"
