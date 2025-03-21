@@ -8,7 +8,6 @@ jobs:
     runs-on: ubuntu-latest
     concurrency:
       group: concurrency-test-group
-      cancel-in-progress: false # Change à `false` pour voir la différence
 
     steps:
       - name: Début du workflow
