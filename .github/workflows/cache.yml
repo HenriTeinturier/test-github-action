@@ -16,6 +16,22 @@ jobs:
         id: npm-cache-dir
         shell: bash
         run: echo "dir=$(npm config get cache)" >> ${GITHUB_OUTPUT}
+      # AJOUT 1
+      - name: Lookup npm cache
+        id: npm-cache-lookup
+        uses: actions/cache/restore@v4
+        with:
+          path: ${{ steps.npm-cache-dir.outputs.dir }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          lookup-only: true
+      # AJOUT 2
+      - name: Display cache lookup status
+        run: |
+          if [[ "${{ steps.npm-cache-lookup.outputs.cache-hit }}" == "true" ]]; then
+            echo "✅ Cache existe mais n’a pas été restauré."
+          else
+            echo "❌ Aucun cache trouvé."
+          fi
       - name: Cache dependencies
         uses: actions/cache@v4
         id: npm-cache # use this to check for `cache-hit` ==> if: steps.npm-cache.outputs.cache-hit != 'true'
@@ -25,6 +41,8 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
+          # AJOUT 3
+          fail-on-cache-miss: true
       - name: display cache statut
         run: |
           if [ "${{ steps.npm-cache.outputs.cache-hit }}" == "true" ]; then
