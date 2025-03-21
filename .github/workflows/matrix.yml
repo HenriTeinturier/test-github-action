@@ -5,11 +5,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
+      # utile si pas assez de ressources sur un runner self-hosted par exemple
+      max-parallel: 2
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest, windows-latest, macos-latest]
         node-version: [22, 24]
-        include:
-          - os: macos-latest
     steps:
       - run: |
           echo "Running on ${{ matrix.os }} with node ${{ matrix.node-version }}"
