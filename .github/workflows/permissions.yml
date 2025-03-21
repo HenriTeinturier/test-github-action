@@ -1,12 +1,17 @@
-name: Permissions workflow
+name: Mon premier workflow
 on: push
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - run: |
-          echo "Hello world!"
-          echo "GITHUB_TOKEN: $GITHUB_TOKEN"
-          # Le GITHUB_SECRET est un secret
-          echo "Contexte secrets: ${{ secrets.GITHUB_TOKEN }}"
+          echo 123 > test.txt
+          # on doit configurer le mail et name pour pouvoir commit et push
+          # l'action cehckout ne configure pas le mail et name
+          git config --global user.email "action@github.com"
+          git config --global user.name "GitHub Action"
+          git add test.txt
+          git commit -m "Add test.txt"
+          git push origin main
