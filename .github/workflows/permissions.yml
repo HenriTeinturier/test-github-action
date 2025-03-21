@@ -4,6 +4,13 @@ on: push
 jobs:
   build:
     runs-on: ubuntu-latest
+    # Ajout permissions pour pouvoir commit et push
+    #! AVANT DE COMMIT:
+    # Boucle infinie?
+    # event sur le push > commit > push > event sur le push > commit > push > ...
+    # Mais en fait non car après le push le même event n'est plus déclenché
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
       - run: |
