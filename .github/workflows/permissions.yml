@@ -1,0 +1,12 @@
+name: Permissions workflow
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "Hello world!"
+          echo "GITHUB_TOKEN: $GITHUB_TOKEN"
+          # Le GITHUB_SECRET est un secret
+          echo "Contexte secrets: ${{ secrets.GITHUB_TOKEN }}"
