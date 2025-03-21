@@ -1,0 +1,21 @@
+name: Concurrency Test
+
+on:
+  workflow_dispatch: # Permet de déclencher manuellement le workflow
+
+jobs:
+  test-concurrency:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: concurrency-test-group
+      cancel-in-progress: true # Change à `false` pour voir la différence
+
+    steps:
+      - name: Début du workflow
+        run: echo "🚀 Workflow démarré"
+
+      - name: Attente de 2 minutes
+        run: sleep 120 # Simule un workflow long pour observer les annulations
+
+      - name: Fin du workflow
+        run: echo "✅ Workflow terminé"
