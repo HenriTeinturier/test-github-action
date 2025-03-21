@@ -16,33 +16,21 @@ jobs:
         id: npm-cache-dir
         shell: bash
         run: echo "dir=$(npm config get cache)" >> ${GITHUB_OUTPUT}
-      # - name: Cache dependencies
-      #   uses: actions/cache@v4
-      #   id: npm-cache # use this to check for `cache-hit` ==> if: steps.npm-cache.outputs.cache-hit != 'true'
-      #   with:
-      #     path: ${{ steps.npm-cache-dir.outputs.dir }}
-      #     # Par convention on peut ajouter node- avant le hash. Ce n’est pas obligatoire mais c’est plus clair pour différencier les caches si on en utilise plusieurs dans notre workflow (un pour python, un pour build, …).
-      #     key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-      #     restore-keys: |
-      #       ${{ runner.os }}-node-
-      - name: Restore npm cache
-        id: npm-cache-restore
-        uses: actions/cache/restore@v4
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        id: npm-cache # use this to check for `cache-hit` ==> if: steps.npm-cache.outputs.cache-hit != 'true'
         with:
           path: ${{ steps.npm-cache-dir.outputs.dir }}
+          # Par convention on peut ajouter node- avant le hash. Ce n’est pas obligatoire mais c’est plus clair pour différencier les caches si on en utilise plusieurs dans notre workflow (un pour python, un pour build, …).
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-
+          restore-keys: |
+            ${{ runner.os }}-node-
       - name: display cache statut
         run: |
-          if [ "${{ steps.npm-cache-restore.outputs.cache-hit }}" == "true" ]; then
+          if [ "${{ steps.npm-cache.outputs.cache-hit }}" == "true" ]; then
             echo "✅ cache récupéré"
           else
             echo "❌ pas de cache récupéré"
           fi
       - name: install dependencies
         run: npm ci
-      - name: save cache
-        uses: actions/cache/save@v4
-        with:
-          path: ${{ steps.npm-cache-dir.outputs.dir }}
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
