@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     concurrency:
       group: my-job-group
-      cancel-in-progress: true
+      cancel-in-progress: false
     steps:
       - name: Start job
         run: echo "Début du job"
