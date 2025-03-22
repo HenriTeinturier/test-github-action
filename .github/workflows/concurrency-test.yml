@@ -4,17 +4,31 @@ on:
   workflow_dispatch: # Permet de déclencher manuellement le workflow
 
 jobs:
-  test-concurrency:
+  # test-concurrency:
+  #   runs-on: ubuntu-latest
+  #   concurrency:
+  #     group: concurrency-test-group
+
+  #   steps:
+  #     - name: Début du workflow
+  #       run: echo "🚀 Workflow démarré"
+
+  #     - name: Attente de 2 minutes
+  #       run: sleep 120 # Simule un workflow long pour observer les annulations
+
+  #     - name: Fin du workflow
+  #       run: echo "✅ Workflow terminé"
+  my-dangerous-job:
     runs-on: ubuntu-latest
     concurrency:
-      group: concurrency-test-group
-
+      group: my-job-group
+      cancel-in-progress: true
     steps:
-      - name: Début du workflow
-        run: echo "🚀 Workflow démarré"
+      - name: Start job
+        run: echo "Début du job"
 
-      - name: Attente de 2 minutes
-        run: sleep 120 # Simule un workflow long pour observer les annulations
+      - name: Simulate long job
+        run: sleep 120 # Simule un job long (2 minute)
 
-      - name: Fin du workflow
-        run: echo "✅ Workflow terminé"
+      - name: End job
+        run: echo "Fin du job"
