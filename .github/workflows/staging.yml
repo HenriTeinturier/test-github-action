@@ -11,4 +11,4 @@ jobs:
       url: https://mon-application-staging.fr
     steps:
       - run: |
-          echo Deploy to staging
+          echo Deploy to staging environnement
