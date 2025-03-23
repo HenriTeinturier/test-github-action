@@ -1,0 +1,15 @@
+name: staging workflow
+on:
+  push:
+    branches:
+      - staging
+
+jobs:
+  deploy-staging:
+    runs-on: ubuntu-latest
+    environment:
+      name: staging
+      url: https://mon-application-staging.fr
+    steps:
+      - run: |
+          echo Deploy to staging
