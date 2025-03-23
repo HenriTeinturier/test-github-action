@@ -12,5 +12,5 @@ jobs:
     steps:
       - run: |
           echo Deploy to production
-          echo "secrets fron staging environnement" ${{ secrets.DATABASE_PASSWORD }}
-          echo "DATABASE_URL from staging environnement" ${{ env.DATABASE_URL }}
+          echo "secret password" ${{ secrets.DATABASE_PASSWORD }}
+          echo "DATABASE_URL" ${{ env.DATABASE_URL }}
