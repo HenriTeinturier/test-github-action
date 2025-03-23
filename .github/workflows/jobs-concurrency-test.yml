@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     concurrency:
       group: jobs-concurrency
-      cancel-in-progress: false
+      cancel-in-progress: true
     steps:
       - name: Début du workflow
         run: echo "🚀 Workflow démarré"
