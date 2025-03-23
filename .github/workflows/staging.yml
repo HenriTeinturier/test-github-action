@@ -12,3 +12,6 @@ jobs:
     steps:
       - run: |
           echo Deploy to staging environnement
+          echo "secret password" ${{ secrets.DATABASE_PASSWORD }}
+          # Rappel pour créer une variable d'environnement depuis l'UI de GITHUB on utilise vars
+          echo "DATABASE_URL" ${{ vars.DATABASE_URL }}

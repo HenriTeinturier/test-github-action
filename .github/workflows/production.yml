@@ -12,3 +12,7 @@ jobs:
     steps:
       - run: |
           echo Deploy to production
+          # Pour récupérer le recret on utilise secret
+          echo "secret password" ${{ secrets.DATABASE_PASSWORD }}
+          # Pour récupérer une variable sur GITHUB on utilise vars
+          echo "DATABASE_URL" ${{ vars.DATABASE_URL }}
