@@ -1,4 +1,4 @@
-name: Concurrency Test
+name: workflow cancel true
 
 on:
   # Permet de déclencher manuellement le workflow
@@ -6,6 +6,7 @@ on:
 
 concurrency:
   group: concurrency-test-group
+  cancel-in-progress: true
 
 jobs:
   test-concurrency:
@@ -20,17 +21,3 @@ jobs:
 
       - name: Fin du workflow
         run: echo "✅ Workflow terminé"
-  # my-dangerous-job:
-  #   runs-on: ubuntu-latest
-  #   concurrency:
-  #     group: my-job-group
-  #     cancel-in-progress: false
-  #   steps:
-  #     - name: Start job
-  #       run: echo "Début du job"
-
-  #     - name: Simulate long job
-  #       run: sleep 120 # Simule un job long (2 minute)
-
-  #     - name: End job
-  #       run: echo "Fin du job"

@@ -1,0 +1,22 @@
+name: job cancel false
+
+on:
+  # Permet de déclencher manuellement le workflow
+  workflow_dispatch:
+
+jobs:
+  test-concurrency:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: concurrency-test-group
+      cancel-in-progress: false
+
+    steps:
+      - name: Début du workflow
+        run: echo "🚀 Workflow démarré"
+
+      - name: Attente de 2 minutes
+        run: sleep 120
+
+      - name: Fin du workflow
+        run: echo "✅ Workflow terminé"
