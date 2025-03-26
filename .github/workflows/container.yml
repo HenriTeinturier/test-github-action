@@ -6,10 +6,13 @@ jobs:
   classique:
     runs-on: ubuntu-latest
     steps:
+      # ajout du code source
+      - uses: actions/checkout@v4
+
       - run: |
           echo "Job classique"
           echo "pwd: $(pwd)"
-          echo "ls -la: $(ls -la)"
+          echo "ls -a: $(ls -a)"
           echo "node -v: $(node -v)"
 
   avec-container:
@@ -17,8 +20,11 @@ jobs:
     container:
       image: node:22
     steps:
+      # ajout du code source
+      - uses: actions/checkout@v4
+
       - run: |
           echo "Job avec container"
           echo "pwd: $(pwd)"
-          echo "ls -la: $(ls -la)"
+          echo "ls -a: $(ls -a)"
           echo "node -v: $(node -v)"
