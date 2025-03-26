@@ -14,4 +14,5 @@ jobs:
       - run: |
           echo "From private image"
           pwd
-          ls-a
+          ls -a
+          node -v
