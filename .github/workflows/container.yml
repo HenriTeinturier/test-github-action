@@ -6,12 +6,12 @@ jobs:
   avec-container:
     runs-on: ubuntu-latest
     container:
-      image: node:22
-      volumes:
-        - my_volume:/app/temp
+      image: henriteinturier/demonstration-image-prive
+      credentials:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
     steps:
       - run: |
-          echo "Hello from Volume" > /app/temp/hello.txt
-
-      - run: |
-          cat /app/temp/hello.txt
+          echo "From private image"
+          pwd
+          ls-a
