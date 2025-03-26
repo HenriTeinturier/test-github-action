@@ -3,28 +3,12 @@ name: Container Docker
 on: push
 
 jobs:
-  classique:
-    runs-on: ubuntu-latest
-    steps:
-      # ajout du code source
-      - uses: actions/checkout@v4
-
-      - run: |
-          echo "Job classique"
-          echo "pwd: $(pwd)"
-          echo "ls -a: $(ls -a)"
-          echo "node -v: $(node -v)"
-
   avec-container:
     runs-on: ubuntu-latest
     container:
       image: node:22
+      env:
+        NODE_ENV: "production"
     steps:
-      # ajout du code source
-      - uses: actions/checkout@v4
-
       - run: |
-          echo "Job avec container"
-          echo "pwd: $(pwd)"
-          echo "ls -a: $(ls -a)"
-          echo "node -v: $(node -v)"
+          echo "NODE_ENV: $NODE_ENV"
