@@ -7,8 +7,11 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: node:22
-      env:
-        NODE_ENV: "production"
+      volumes:
+        - my_volume:/app/temp
     steps:
       - run: |
-          echo "NODE_ENV: $NODE_ENV"
+          echo "Hello from Volume" > /app/temp/hello.txt
+
+      - run: |
+          cat /app/temp/hello.txt
