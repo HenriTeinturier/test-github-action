@@ -16,7 +16,7 @@ jobs:
           POSTGRES_PASSWORD: ${{ secrets.PGPASSWORD }}
           POSTGRES_DB: ${{ secrets.PGDATABASE }}
         options: >-
-          --health-cmd "pg_isready -U ${{ ts.PGUSER }}"
+          --health-cmd pg_isready -U ${{ secrets.PGUSER }}
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
@@ -31,6 +31,6 @@ jobs:
       - name: 🧪 Lister les utilisateurs dans la base PostgreSQL
         run: |
           echo "Connexion à la base PostgreSQL..."
-          psql -h db -U $PGUSER -d $PGDATABASE -c "SELECT * FROM users;"
+          psql -h localhost -U ${{ secrets.PGUSER }} -d ${{ secrets.PGDATABASE }} -c "SELECT * FROM users;"
         env:
           PGPASSWORD: ${{ secrets.PGPASSWORD }}
