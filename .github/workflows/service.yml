@@ -23,11 +23,11 @@ jobs:
           sudo apt-get install -y redis-tools
 
       - run: |
-          echo 'test connexion' $(redis-cli -h localhost:6379 PING)
+          echo 'test connexion' $(redis-cli -h redis PING)
           # Ajout de données dans redis
           # -h pour host
-          redis-cli -h localhost:6379 SET user:1 '{"id":1,"name":"Henri"}'
-          redis-cli -h localhost:6379 SET user:2 '{"id":2,"name":"Alice"}'
+          redis-cli -h localhost SET user:1 '{"id":1,"name":"Henri"}'
+          redis-cli -h localhost SET user:2 '{"id":2,"name":"Alice"}'
           # Récupération des données
-          echo "user 1: $(redis-cli -h localhost:6379 GET user:1)"
-          echo "user 2: $(redis-cli -h localhost:6379 GET user:2)"
+          echo "user 1: $(redis-cli -h localhost GET user:1)"
+          echo "user 2: $(redis-cli -h localhost GET user:2)"
