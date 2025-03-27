@@ -23,7 +23,7 @@ jobs:
           sudo apt-get install -y redis-tools
 
       - run: |
-          echo 'test connexion' $(redis-cli -h redis PING)
+          echo 'test connexion' $(redis-cli -h redis -p 6379 PING)
           # Ajout de données dans redis
           # -h pour host
           redis-cli -h localhost SET user:1 '{"id":1,"name":"Henri"}'
