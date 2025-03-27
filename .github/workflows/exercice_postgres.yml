@@ -22,9 +22,6 @@ jobs:
           --health-retries 5
 
     steps:
-      - name: 📦 Récupération du dépôt
-        uses: actions/checkout@v4
-
       - name: 🛠️ Installer le client PostgreSQL (psql)
         run: sudo apt-get update && sudo apt-get install -y postgresql-client
 
