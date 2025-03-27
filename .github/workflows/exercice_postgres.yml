@@ -16,7 +16,7 @@ jobs:
           POSTGRES_PASSWORD: ${{ secrets.PGPASSWORD }}
           POSTGRES_DB: ${{ secrets.PGDATABASE }}
         options: >-
-          --health-cmd pg_isready -U ${{ secrets.PGUSER }}
+          --health-cmd "pg_isready"
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
