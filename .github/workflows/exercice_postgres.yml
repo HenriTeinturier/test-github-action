@@ -12,9 +12,9 @@ jobs:
         ports:
           - 5432:5432
         env:
-          POSTGRES_USER: ${{ secrets.PGUSER }}
-          POSTGRES_PASSWORD: ${{ secrets.PGPASSWORD }}
-          POSTGRES_DB: ${{ secrets.PGDATABASE }}
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
         options: >-
           --health-cmd "pg_isready"
           --health-interval 10s
@@ -31,6 +31,6 @@ jobs:
       - name: 🧪 Lister les utilisateurs dans la base PostgreSQL
         run: |
           echo "Connexion à la base PostgreSQL..."
-          psql -h localhost -U ${{ secrets.PGUSER }} -d ${{ secrets.PGDATABASE }} -c "SELECT * FROM users;"
+          psql -h localhost -U ${{ secrets.POSTGRES_USER }} -d ${{ secrets.POSTGRES_DB }} -c "SELECT * FROM users;"
         env:
-          PGPASSWORD: ${{ secrets.PGPASSWORD }}
+          PGPASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
