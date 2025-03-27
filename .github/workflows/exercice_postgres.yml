@@ -35,7 +35,11 @@ jobs:
       - name: 💾 Dump de la base PostgreSQL
         run: |
           mkdir -p dumps
-          pg_dump -h localhost -U ${{ secrets.POSTGRES_USER }} -d ${{ secrets.POSTGRES_DB }} > dumps/dump.sql
+          # On utilise docker exec pour exécuter une commande dans le conteneur PostgreSQL
+          # On exécute pg_dump directement dans le conteneur pour avoir la même version que PostgreSQL
+          # pg_dump est un outil PostgreSQL qui permet de sauvegarder la base de données dans un fichier SQL
+          # GitHub Actions nous fournit l'ID du conteneur via job.services.db.id
+          docker exec ${{ job.services.db.id }} pg_dump -U ${{ secrets.POSTGRES_USER }} -d ${{ secrets.POSTGRES_DB }} > dumps/dump.sql
         env:
           PGPASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
       - name: 📤 Upload du dump PostgreSQL comme artefact
