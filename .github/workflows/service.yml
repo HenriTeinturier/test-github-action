@@ -4,6 +4,8 @@ on: push
 jobs:
   test-services:
     runs-on: ubuntu-latest
+    container:
+      image: node:20-alpine
     services:
       redis:
         image: redis:latest
@@ -28,11 +30,11 @@ jobs:
       - run: |
 
           # Pas besoin de préciser le port car le 6379 est le port par default
-          echo 'test connexion' $(redis-cli -h localhost -p 6379 PING)
+          echo 'test connexion' $(redis-cli -h redis -p 6379 PING)
           # Ajout de données dans redis
           # -h pour host
-          redis-cli -h localhost SET user:1 '{"id":1,"name":"Henri"}'
-          redis-cli -h localhost SET user:2 '{"id":2,"name":"Alice"}'
+          redis-cli -h redis SET user:1 '{"id":1,"name":"Henri"}'
+          redis-cli -h redis SET user:2 '{"id":2,"name":"Alice"}'
           # Récupération des données
-          echo "user 1: $(redis-cli -h localhost GET user:1)"
-          echo "user 2: $(redis-cli -h localhost GET user:2)"
+          echo "user 1: $(redis-cli -h redis GET user:1)"
+          echo "user 2: $(redis-cli -h redis GET user:2)"
