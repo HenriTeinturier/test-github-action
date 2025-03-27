@@ -1,0 +1,36 @@
+name: Test PostgreSQL personnalisé
+
+on: push
+
+jobs:
+  test-postgres:
+    runs-on: ubuntu-latest
+
+    services:
+      db:
+        image: henriteinturier/postgres-init:latest
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_USER: ${{ secrets.PGUSER }}
+          POSTGRES_PASSWORD: ${{ secrets.PGPASSWORD }}
+          POSTGRES_DB: ${{ secrets.PGDATABASE }}
+        options: >-
+          --health-cmd "pg_isready -U ${{ ts.PGUSER }}"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: 📦 Récupération du dépôt
+        uses: actions/checkout@v4
+
+      - name: 🛠️ Installer le client PostgreSQL (psql)
+        run: sudo apt-get update && sudo apt-get install -y postgresql-client
+
+      - name: 🧪 Lister les utilisateurs dans la base PostgreSQL
+        run: |
+          echo "Connexion à la base PostgreSQL..."
+          psql -h db -U $PGUSER -d $PGDATABASE -c "SELECT * FROM users;"
+        env:
+          PGPASSWORD: ${{ secrets.PGPASSWORD }}
