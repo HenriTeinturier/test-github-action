@@ -35,7 +35,7 @@ jobs:
       - name: 💾 Dump de la base PostgreSQL
         run: |
           mkdir -p dumps
-          pg_dump -h db -U ${{ secrets.POSTGRES_USER }} -d ${{ secrets.POSTGRES_DB }} > dumps/dump.sql
+          pg_dump -h localhost -U ${{ secrets.POSTGRES_USER }} -d ${{ secrets.POSTGRES_DB }} > dumps/dump.sql
         env:
           PGPASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
       - name: 📤 Upload du dump PostgreSQL comme artefact
