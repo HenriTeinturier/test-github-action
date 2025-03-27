@@ -31,3 +31,15 @@ jobs:
           psql -h localhost -U ${{ secrets.POSTGRES_USER }} -d ${{ secrets.POSTGRES_DB }} -c "SELECT * FROM users;"
         env:
           PGPASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+
+      - name: 💾 Dump de la base PostgreSQL
+        run: |
+          mkdir -p dumps
+          pg_dump -h db -U ${{ secrets.POSTGRES_USER }} -d ${{ secrets.POSTGRES_DB }} > dumps/dump.sql
+        env:
+          PGPASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+      - name: 📤 Upload du dump PostgreSQL comme artefact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dump-postgres
+          path: dumps/dump.sql
