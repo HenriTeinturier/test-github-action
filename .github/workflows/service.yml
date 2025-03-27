@@ -8,6 +8,9 @@ jobs:
       redis:
         image: redis:latest
         ports:
+          # on expose les ports pour envoyer 
+	        #localhost:6379 
+	        #vers le port 6379 de notre service.
           - 6379:6379
         options: >-
           --health-cmd "redis-cli ping"
