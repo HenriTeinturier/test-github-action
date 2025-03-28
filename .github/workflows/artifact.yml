@@ -10,3 +10,15 @@ jobs:
         with:
           name: myfirstartifact
           path: ./text.txt
+  download-artifact:
+    runs-on: ubuntu-latest
+    needs: test-artifacts
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: myfirstartifact
+          path: ./ici
+      - run: |
+          ls
+          ls ./ici
+          cat ./ici/text.txt
