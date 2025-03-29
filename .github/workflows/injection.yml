@@ -8,4 +8,4 @@ jobs:
       - run: |
           titre=${{ github.event.head_commit.message }}
           echo Hello world !
-          echo $titre
+          echo commit name: $titre
