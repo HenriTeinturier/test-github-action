@@ -4,8 +4,9 @@ on: push
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      titre: ${{ github.event.head_commit.message }}
     steps:
       - run: |
-          titre=${{ github.event.head_commit.message }}
           echo Hello world !
           echo commit name: $titre
