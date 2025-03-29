@@ -24,8 +24,5 @@ jobs:
           echo "## 🚀 Déploiement effectué" >> $GITHUB_STEP_SUMMARY
           echo "- Environnement : staging" >> $GITHUB_STEP_SUMMARY
           echo "- URL : https://mon-app.example.com" >> $GITHUB_STEP_SUMMARY
-
-      - name: Puis, on ÉCRASE tout volontairement
-        run: |
           echo "## ⚠️ Résumé écrasé volontairement" > $GITHUB_STEP_SUMMARY
           echo "- Nouveau contenu, l’ancien a été supprimé" >> $GITHUB_STEP_SUMMARY
