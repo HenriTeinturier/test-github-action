@@ -9,3 +9,4 @@ jobs:
           titre=${{ github.event.head_commit.message }}
           echo Hello world !
           echo $titre
+          echo "test"
