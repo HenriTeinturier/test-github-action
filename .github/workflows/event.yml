@@ -3,6 +3,7 @@ on:
   push:
     paths-ignore:
       - "./doc/**"
+      - "doc/**"
 
 jobs:
   build:
