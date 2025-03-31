@@ -1,0 +1,69 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+
+jobs:
+  build-and-test:
+    name: Build & Test
+    runs-on: ubuntu-latest
+    outputs:
+      build-and-test: "L'exécution du job build-and-test c'est bien passée"
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm run test:ci
+
+  test-e2e:
+    name: Test E2E
+    runs-on: ubuntu-latest
+    outputs:
+      test-e2e: "L'exécution du job test-e2e c'est bien passée"
+    steps:
+      - name: test e2e
+        id: test-e2e
+        run: |
+          echo "e2e ok"
+          echo "test-e2e-confirm=Je confirme e2e c'est bien passsé" >> $GITHUB_OUTPUT
+  deploy:
+    name: Deploy
+    needs: [build-and-test, test-e2e]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: test e2e rapport
+        run: |
+          echo "build-and-test-output=${{ needs.build-and-test.outputs.build-and-test }}"
+          echo "test-e2e-output=${{ needs.test-e2e.outputs.test-e2e }}"
+          echo "test-e2e-confirm=${{ needs.test-e2e.outputs.test-e2e-confirm }}"
+          echo "isProductionReady=true" >> $GITHUB_ENV
+
+      # on crée une step qui va récupérer des variables du job précédent en utilisant GITHUB_ENV
+      - name: rapport final
+        run: |
+          echo "rapport finale: ${{ env.isProductionReady }}"
+          echo "rapport finale identique: $isProductionReady"
+
+      - name: deploiement ready ?
+        if: ${{ env.isProductionReady }} == 'true'
+        run: echo "🚀 Deploying to PRODUCTION environment"
+
+      - name: Deploy to Development
+        if: github.ref == 'refs/heads/dev'
+        run: echo "🚀 Deploying to DEVELOPMENT environment"
+
+      - name: Deploy to Production
+        if: github.ref == 'refs/heads/main'
+        run: echo "🚀 Deploying to PRODUCTION environment"
