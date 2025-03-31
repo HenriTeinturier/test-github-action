@@ -31,13 +31,13 @@ jobs:
     name: Test E2E
     runs-on: ubuntu-latest
     outputs:
-      test-e2e: "L'exécution du job test-e2e c'est bien passée"
+      test-e2e: ${{ steps.test-e2e-confirm.outputs.confirmation }}
     steps:
       - name: test e2e
-        id: test-e2e
+        id: test-e2e-confirm
         run: |
           echo "e2e ok"
-          echo "test-e2e-confirm=Je confirme e2e c'est bien passsé" >> $GITHUB_OUTPUT
+          echo "confirmation=Je confirme e2e c'est bien passsé" >> $GITHUB_OUTPUT
   deploy:
     name: Deploy
     needs: [build-and-test, test-e2e]
@@ -48,7 +48,6 @@ jobs:
         run: |
           echo "build-and-test-output=${{ needs.build-and-test.outputs.build-and-test }}"
           echo "test-e2e-output=${{ needs.test-e2e.outputs.test-e2e }}"
-          echo "test-e2e-confirm=${{ needs.test-e2e.outputs.test-e2e-confirm }}"
           echo "isProductionReady=true" >> $GITHUB_ENV
 
       # on crée une step qui va récupérer des variables du job précédent en utilisant GITHUB_ENV
