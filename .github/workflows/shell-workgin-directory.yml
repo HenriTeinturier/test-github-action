@@ -15,5 +15,6 @@ jobs:
       # powershell
       - run: |
           Get-Location
-          echo $env:SHELL
+          Write-Host "PowerShell Version: $($PSVersionTable.PSVersion)"
+          Write-Host "Current Shell: $($PSVersionTable.PSEdition)"
         shell: pwsh
