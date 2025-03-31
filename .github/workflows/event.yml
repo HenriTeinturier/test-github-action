@@ -1,12 +1,6 @@
 name: Mon premier workflow
 on:
   push:
-    paths:
-      - "./hello.txt"
-      - "./src" # ici seul les modifications du dossier sont surveillées:
-      - "./src/**" # tous les fichiers dans src
-      - "*.js" # tous les fichiers js à la racine
-      # On peut mixer paths et pathss-ignore
     paths-ignore:
       - "doc/**"
 
