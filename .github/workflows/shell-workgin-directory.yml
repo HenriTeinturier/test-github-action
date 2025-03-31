@@ -1,0 +1,19 @@
+name: workgin directory et shell
+on: push
+
+jobs:
+  my-job:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          pwd
+          echo $SHELL
+      - run: |
+          pwd
+          echo $SHELL
+        shell: sh
+      # powershell
+      - run: |
+          pwd
+          echo $env:SHELL
+        shell: pwsh
