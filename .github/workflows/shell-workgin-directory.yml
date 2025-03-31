@@ -10,10 +10,10 @@ jobs:
           echo $SHELL
       - run: |
           pwd
-          echo $SHELL
+          echo $0
         shell: sh
       # powershell
       - run: |
-          pwd
+          Get-Location
           echo $env:SHELL
         shell: pwsh
