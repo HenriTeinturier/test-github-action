@@ -4,6 +4,9 @@ on:
     paths-ignore:
       - "./doc/**"
       - "doc/**"
+      - "**/*.md"
+      - "**/*.log" # Ignore tous les fichiers .log
+      - "**/node_modules/**" # Ignore tous les node_modules
 
 jobs:
   build:
