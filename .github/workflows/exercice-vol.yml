@@ -7,9 +7,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Analyse scène de crime
-      run: echo "Le policier examine la caisse enregistreuse"
+        run: echo "Le policier examine la caisse enregistreuse"
       - name: Prélèvement empreinte
-      run: echo "Empreinte prélevée sur la caisse"
+        run: echo "Empreinte prélevée sur la caisse"
     outputs:
       empreinte: "Empreinte digitale trouvée sur la caisse"
 
@@ -17,11 +17,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Récupération vidéos
-      id: surveillance
-      run: echo "resultat=Séquence vidéo 22h15-22h45 récupérée" >> "$GITHUB_OUTPUT"
+        id: surveillance
+        run: echo "resultat=Séquence vidéo 22h15-22h45 récupérée" >> "$GITHUB_OUTPUT"
     outputs:
       video: ${{ steps.surveillance.outputs.resultat }}
-      
+
   detective:
     needs: [policier-scene, policier-video]
     runs-on: ubuntu-latest
@@ -47,7 +47,7 @@ jobs:
       rapport: ${{ steps.analyse.outputs.conclusion }}
       lieu_arrestation: ${{ steps.analyse.outputs.lieu }}
       autorisation_arrestation: ${{ steps.analyse.outputs.autorisation }}
-      
+
   police:
     needs: detective
     runs-on: ubuntu-latest
