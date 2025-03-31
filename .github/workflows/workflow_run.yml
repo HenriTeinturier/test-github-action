@@ -1,0 +1,15 @@
+name: test backup
+
+on:
+  workflow_run:
+    # On utilise le nom du workflow déclencheur
+    workflows: backup database
+    types:
+      - completed
+
+jobs:
+  test-backup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: test backup
+        run: echo "Test backup"
