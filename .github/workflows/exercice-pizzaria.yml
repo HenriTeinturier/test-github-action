@@ -66,6 +66,9 @@ jobs:
     permissions:
       issues: write # Seule permission nécessaire pour créer des issues
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Création réclamation
         env:
           GH_TOKEN: ${{ github.token }}

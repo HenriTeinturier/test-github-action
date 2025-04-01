@@ -2,7 +2,7 @@
 
 ## 🔍 Contexte
 
-Vous êtes le nouveau responsable de la pizzeria "Pizza Express" et vous avez décidé de moderniser votre établissement avec GitHub Actions. Votre objectif : éviter les catastrophes comme la fois où Luigi a livré une pizza végétarienne à un client qui avait commandé une "Carnivore Supreme" ! 🥩
+Vous êtes le nouveau responsable de la pizzeria "PizzaCI - Express" et vous avez décidé de moderniser votre établissement avec GitHub Actions. Votre objectif : éviter les catastrophes comme la fois où Luigi a livré une pizza végétarienne à un client qui avait commandé une "Carnivore Supreme" ! 🥩
 
 Le workflow doit simuler tout le processus, de la prise de commande jusqu'à la gestion des réclamations (qu'on espère éviter grâce à notre système automatisé !).
 
@@ -55,7 +55,9 @@ Le workflow doit simuler tout le processus, de la prise de commande jusqu'à la 
 
 1. Créer un job `reclamation` qui dépend de `livraison`
 2. Configurer la permission d'écriture pour les issues
-3. Créer une issue GitHub pour la réclamation
+3. Créer les steps :
+   - Cloner le dépôt (nécessaire pour gh issue create)
+   - Créer une issue GitHub pour la réclamation
 
 ## 🛠️ Conseils techniques
 
