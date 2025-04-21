@@ -1,19 +1,55 @@
-name: Mon premier workflow
+# name: Mon premier workflow
+# on: push
+# jobs:
+#   my-job:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - run: exit 1
+#       - run: echo STEP 1
+#         # ajout
+#       - if: always()
+#         run: echo STEP 2
+#         # le contenu de if est considéré comme une expression
+#         # pas besoin de mettre $ et double accolade
+#       - run: echo STEP 3
+#       - if: failure()
+#         run: echo STEP 4
+#       - if: success()
+#         run: echo STEP 5
+#       - run: echo STEP 6
+
+name: expressions
 on: push
+
 jobs:
-  my-job:
+  job-with-always:
     runs-on: ubuntu-latest
     steps:
       - run: exit 1
-      - run: echo STEP 1
-        # ajout
       - if: always()
-        run: echo STEP 2
-        # le contenu de if est considéré comme une expression
-        # pas besoin de mettre $ et double accolade
-      - run: echo STEP 3
+        run: echo "Cette étape ne s'exécutera PAS car le job s'arrête après l'erreur"
+
+  job-with-continue:
+    runs-on: ubuntu-latest
+    steps:
+      - run: exit 1
+        continue-on-error: true
+      - run: echo "Étape 1 - S'exécutera malgré l'erreur précédente"
       - if: failure()
-        run: echo STEP 4
+        run: echo "Étape 2 - S'exécutera car il y a eu une erreur"
       - if: success()
-        run: echo STEP 5
-      - run: echo STEP 6
+        run: echo "Étape 3 - Ne s'exécutera pas car il y a eu une erreur"
+      - run: echo "Étape 4 - S'exécutera aussi"
+
+  job-with-needs:
+    needs: job-with-always
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Ce job s'exécutera toujours, même si job-with-always échoue"
+
+  job-with-needs-without-always:
+    needs: job-with-always
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Ce job s'exécutera uniquement si job-with-always est réussi"
