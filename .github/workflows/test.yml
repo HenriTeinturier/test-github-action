@@ -1,0 +1,12 @@
+name: Mon premier workflow
+on: push
+jobs:
+  my-job:
+    runs-on: ubuntu-latest
+    steps:
+      # on va test un oeprateur dans notre expression
+      - run: echo main = top ? ${{ 'main' == 'top'}}
+      # on test la fonction integré contains: 1er argument le texte source
+      #  2eme argument le text que la fonction doit trouver dans le texte source
+      - run: echo la branche actuelle contient elle main ? ${{ contains(github.ref, 'main')}}
+      - run: echo github.ref_name = ${{ github.ref_name}}
