@@ -4,9 +4,16 @@ jobs:
   my-job:
     runs-on: ubuntu-latest
     steps:
-      # on va test un oeprateur dans notre expression
-      - run: echo main = top ? ${{ 'main' == 'top'}}
-      # on test la fonction integré contains: 1er argument le texte source
-      #  2eme argument le text que la fonction doit trouver dans le texte source
-      - run: echo la branche actuelle contient elle main ? ${{ contains(github.ref, 'main')}}
-      - run: echo github.ref_name = ${{ github.ref_name}}
+      - run: exit 1
+      - run: echo STEP 1
+        # ajout
+      - if: always()
+        run: echo STEP 2
+        # le contenu de if est considéré comme une expression
+        # pas besoin de mettre $ et double accolade
+      - run: echo STEP 3
+      - if: failure()
+        run: echo STEP 4
+      - if: success()
+        run: echo STEP 5
+      - run: echo STEP 6
