@@ -2,39 +2,38 @@ name: Exploration Spatiale - Version Matrice
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   exploration:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        - nom: Mars
-          duree: "7 mois"
-          equipements: ["Rover", "Combinaison spatiale"]
-          activite: "Analyse des roches"
-          type: "planete"
-        - nom: Lune
-          duree: "3 jours"
-          equipements: ["Module lunaire", "Combinaison spatiale"]
-          activite: "Collecte d'échantillons"
-          type: "satellite"
-        - nom: Vénus
-          duree: "5 mois"
-          equipements: ["Sonde atmosphérique", "Instruments scientifiques"]
-          activite: "Analyse atmosphérique"
-          type: "planete"
+        mission:
+          - nom: Mars
+            duree: "7 mois"
+            equipements: ["Rover", "Combinaison spatiale"]
+            activite: "Analyse des roches"
+            type: "planete"
+          - nom: Lune
+            duree: "3 jours"
+            equipements: ["Module lunaire", "Combinaison spatiale"]
+            activite: "Collecte d'échantillons"
+            type: "satellite"
+          - nom: Vénus
+            duree: "5 mois"
+            equipements: ["Sonde atmosphérique", "Instruments scientifiques"]
+            activite: "Analyse atmosphérique"
+            type: "planete"
 
     steps:
-      - name: Mission ${{ matrix.nom }}
+      - name: Mission ${{ matrix.mission.nom }}
         run: |
-          echo "=== Mission ${{ matrix.nom }} ==="
-          echo "Équipements :"
-          echo "- ${{ matrix.equipements[0] }}"
-          echo "- ${{ matrix.equipements[1] }}"
-          echo "Durée du voyage : ${{ matrix.duree }}"
-          echo "Activité principale : ${{ matrix.activite }}"
-          echo "Type de destination : ${{ matrix.type }}"
+          echo "=== Mission ${{ matrix.mission.nom }} ==="
+          echo "Équipements : ${{ matrix.mission.equipements}}"
+          echo "Durée du voyage : ${{ matrix.mission.duree }}"
+          echo "Activité principale : ${{ matrix.mission.activite }}"
+          echo "Type de destination : ${{ matrix.mission.type }}"
           echo "=== Fin de la mission ==="
 
   demandes_president:
@@ -57,4 +56,4 @@ jobs:
           echo "=== Demandes spéciales du Président pour ${{ matrix.nom }} ==="
           echo "Équipement spécial : ${{ matrix.equipement_special || 'Pas besoin' }}"
           echo "Commentaire : ${{ matrix.commentaire || 'Aucun commentaire' }}"
-          echo "=== Fin des demandes spéciales ===" 
+          echo "=== Fin des demandes spéciales ==="

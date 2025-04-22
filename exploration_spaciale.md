@@ -27,9 +27,7 @@ Pour Mars :
 ```yaml
 run: |
   echo "=== Mission Mars ==="
-  echo "Équipements :"
-  echo "- Rover"
-  echo "- Combinaison spatiale"
+  echo "Équipements : [Rover, Combinaison spatiale]"
   echo "Durée du voyage : 7 mois"
   echo "Activité principale : Analyse des roches"
   echo "Type de destination : planete"
@@ -40,9 +38,7 @@ Pour la Lune :
 ```yaml
 run: |
   echo "=== Mission Lune ==="
-  echo "Équipements :"
-  echo "- Module lunaire"
-  echo "- Combinaison spatiale"
+  echo "Équipements : [Module lunaire, Combinaison spatiale]"
   echo "Durée du voyage : 3 jours"
   echo "Activité principale : Collecte d'échantillons"
   echo "Type de destination : satellite"
@@ -53,9 +49,7 @@ Pour Vénus :
 ```yaml
 run: |
   echo "=== Mission Vénus ==="
-  echo "Équipements :"
-  echo "- Sonde atmosphérique"
-  echo "- Instruments scientifiques"
+  echo "Équipements : [Sonde atmosphérique, Instruments scientifiques]"
   echo "Durée du voyage : 5 mois"
   echo "Activité principale : Analyse atmosphérique"
   echo "Type de destination : planete"
@@ -91,12 +85,15 @@ Maintenant que vous avez un workflow fonctionnel mais répétitif, nous allons l
    ```yaml
    strategy:
      matrix:
-       nom: [mars, lune, venus]
-       ...
+      mission: 
+        - nom : Mars
+          durée: ...
+        - nom: Lune
+          ...
    ```
 
 3. Accéder aux informations de la mission dans le job en utilisant :
-   - `${{ matrix.mission }}` pour le nom de la mission
+   - `${{ matrix.mission.nom }}` pour le nom de la mission
    - Les autres variables de la matrice pour les informations spécifiques
 
 4. Créer un seul job qui s'exécutera pour chaque mission de la matrice
@@ -111,7 +108,7 @@ Le Président des États-Unis a exprimé des demandes particulières pour certai
 #### Objectifs
 - Créer un job séparé pour les demandes présidentielles
 - Proposer une matrice avec les 3 noms de missions (Mars, Lune, Vénus)
-- Utiliser la section `include` pour gérer les configurations spéciales
+- Utiliser la section `include` pour gérer les configurations spéciales et commentaires du président.
 
 
 #### Étapes à suivre
