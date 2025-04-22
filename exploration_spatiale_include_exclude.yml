@@ -43,7 +43,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        mission: [Mars, Lune, Vénus]
+        nom: [Mars, Lune, Vénus]
         include:
           - nom: Mars
             equipement_special: "Space Burger"
