@@ -1,0 +1,19 @@
+name: Surveillance des oiseaux
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "oiseaux/**"
+
+jobs:
+  surveiller-oiseaux:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Analyser les changements
+        run: |
+          echo "Un oiseau a besoin d'attention !"
+          echo "Type d'événement : ${{ github.event_name }}"
+          echo "PR créée par : ${{ github.actor }}"
+          echo "Titre de la PR : ${{ github.event.pull_request.title }}"

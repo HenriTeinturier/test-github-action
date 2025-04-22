@@ -1,0 +1,19 @@
+name: Soins des mammifères
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "mammiferes/**"
+
+jobs:
+  nourrir-mammiferes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Vérifier les changements
+        run: |
+          echo "Un mammifère a été modifié ou ajouté !"
+          echo "Type d'événement : ${{ github.event_name }}"
+          echo "Auteur : ${{ github.actor }}"
+          echo "Message de commit : ${{ github.event.head_commit.message }}"
