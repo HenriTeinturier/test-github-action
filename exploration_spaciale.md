@@ -91,7 +91,8 @@ Maintenant que vous avez un workflow fonctionnel mais répétitif, nous allons l
    ```yaml
    strategy:
      matrix:
-       mission: [mars, lune, venus]
+       nom: [mars, lune, venus]
+       ...
    ```
 
 3. Accéder aux informations de la mission dans le job en utilisant :
@@ -105,28 +106,34 @@ Le Président des États-Unis a exprimé des demandes particulières pour certai
 - Pour Mars : il souhaite ajouter un "Space Burger" à la cantine de la mission
 - Pour la Lune : il demande d'emporter un "Télescope pour observer les aliens"
 - Pour Vénus : la mission reste inchangée (le Président n'a pas encore eu d'idée)
+- On va mettre ça dans un job séparé pour lui faire plaisir et on supprimera les jobs au prochain changement de président
 
 #### Objectifs
-- Ajouter des configurations spéciales pour certaines missions
-- Respecter les demandes présidentielles
-- Maintenir la compatibilité avec les missions existantes
+- Créer un job séparé pour les demandes présidentielles
+- Proposer une matrice avec les 3 noms de missions (Mars, Lune, Vénus)
+- Utiliser la section `include` pour gérer les configurations spéciales
+
 
 #### Étapes à suivre
-1. Utiliser la section `include` pour ajouter des configurations spéciales :
-   - L'include permet d'ajouter des clés supplémentaires à certaines combinaisons de la matrice
-   - Il faut au moins une clé identique (par exemple le nom de la mission) pour que les nouvelles clés soient ajoutées
-   - Les informations existantes (durée, équipements, etc.) sont conservées
+1. Créer un nouveau job `demandes_president` qui :
+   - Dépend du job d'exploration principal
+   - Utilise une matrice avec les trois noms de mission (Mars, Lune, Vénus)
+   - Utilise la section `include` pour ajouter les demandes spéciales:
+     - Pour Mars:
+       - equipement_special: "Space Burger"
+       - commentaire: "Pour maintenir le moral de l'équipage"
+     - Pour la Lune:
+       - equipement_special: "Télescope pour observer les aliens"
+       - commentaire: "Parce que les aliens existent, c'est sûr !"
 
-2. Pour Mars, ajouter avec l'include :
+
+2. Dans les steps du job, afficher les demandes spéciales avec des valeurs par défaut :
    ```yaml
-      equipement_special: "Space Burger"
-      commentaire: "Pour maintenir le moral de l'équipage"
+    echo "Équipement spécial : ${{ matrix.equipement_special || 'Pas besoin' }}"
+    echo "Commentaire : ${{ matrix.commentaire || 'Aucun commentaire' }}"
    ```
 
-3. Pour la Lune, ajouter avec l'include :
-   ```yaml
-    equipement_special: "Télescope pour observer les aliens"
-    commentaire: "Parce que les aliens existent, c'est sûr !"
-   ```
-
-4. Modifier le job pour afficher les équipements spéciaux et les commentaires tout en conservant les informations existantes
+3. Vérifier que :
+   - Le job s'exécute après le job d'exploration principal
+   - Les demandes spéciales sont correctement affichées pour Mars et la Lune
+   - Les valeurs par défaut sont affichées pour Vénus

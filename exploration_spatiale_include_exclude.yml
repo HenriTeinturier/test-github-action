@@ -25,13 +25,6 @@ jobs:
             equipements: ["Sonde atmosphérique", "Instruments scientifiques"]
             activite: "Analyse atmosphérique"
             type: "planete"
-        include:
-          - nom: Mars
-            equipement_special: "Space Burger"
-            commentaire: "Pour maintenir le moral de l'équipage"
-          - nom: Lune
-            equipement_special: "Télescope pour observer les aliens"
-            commentaire: "Parce que les aliens existent, c'est sûr !"
 
     steps:
       - name: Mission ${{ matrix.mission.nom }}
@@ -43,6 +36,26 @@ jobs:
           echo "Durée du voyage : ${{ matrix.mission.duree }}"
           echo "Activité principale : ${{ matrix.mission.activite }}"
           echo "Type de destination : ${{ matrix.mission.type }}"
+          echo "=== Fin de la mission ==="
+
+  demandes_president:
+    needs: exploration
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        mission: [Mars, Lune, Vénus]
+        include:
+          - nom: Mars
+            equipement_special: "Space Burger"
+            commentaire: "Pour maintenir le moral de l'équipage"
+          - nom: Lune
+            equipement_special: "Télescope pour observer les aliens"
+            commentaire: "Parce que les aliens existent, c'est sûr !"
+
+    steps:
+      - name: Demandes spéciales pour ${{ matrix.mission.nom }}
+        run: |
+          echo "=== Demandes spéciales du Président pour ${{ matrix.mission.nom }} ==="
           echo "Équipement spécial : ${{ matrix.equipement_special || 'Pas besoin' }}"
           echo "Commentaire : ${{ matrix.commentaire || 'Aucun commentaire' }}"
-          echo "=== Fin de la mission ===" 
+          echo "=== Fin des demandes spéciales ===" 
