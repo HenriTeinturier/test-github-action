@@ -27,7 +27,7 @@ Pour Mars :
 ```yaml
 run: |
   echo "=== Mission Mars ==="
-  echo "Équipements : [Rover, Combinaison spatiale]"
+  echo "Équipements : Rover, Combinaison spatiale"
   echo "Durée du voyage : 7 mois"
   echo "Activité principale : Analyse des roches"
   echo "Type de destination : planete"
@@ -38,7 +38,7 @@ Pour la Lune :
 ```yaml
 run: |
   echo "=== Mission Lune ==="
-  echo "Équipements : [Module lunaire, Combinaison spatiale]"
+  echo "Équipements : Module lunaire, Combinaison spatiale"
   echo "Durée du voyage : 3 jours"
   echo "Activité principale : Collecte d'échantillons"
   echo "Type de destination : satellite"
@@ -49,7 +49,7 @@ Pour Vénus :
 ```yaml
 run: |
   echo "=== Mission Vénus ==="
-  echo "Équipements : [Sonde atmosphérique, Instruments scientifiques]"
+  echo "Équipements : Sonde atmosphérique, Instruments scientifiques"
   echo "Durée du voyage : 5 mois"
   echo "Activité principale : Analyse atmosphérique"
   echo "Type de destination : planete"
