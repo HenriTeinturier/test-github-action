@@ -1,0 +1,21 @@
+name: Strategy Matrix Example
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [18, 20, 22]
+        db: [local, cloud]
+        exclude:
+          - node: 18
+            db: cloud
+    steps:
+      - name: Display Node.js and Database Configuration
+        run: |
+          echo "Running test on Node.js version: ${{ matrix.node }} with database: ${{ matrix.db }}"
