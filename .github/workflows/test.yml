@@ -1,0 +1,30 @@
+name: CI-CD with Custom Action
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  quality-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Execute custom checks
+        uses: ./actions/nodejs-quality-check
+        with:
+          node-version: "20"
+
+  deploy:
+    needs: quality-check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy application
+        run: echo "Deploying application..."
